@@ -17,14 +17,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.dessertpusher">
 
-    <!-- // TODO (03) Add your application class to the tag below  -->
+    <!-- // TODO (03) Add your application class to the tag below  //DONE-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_dessert_pusher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_dessert_pusher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".PusherApplication">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
