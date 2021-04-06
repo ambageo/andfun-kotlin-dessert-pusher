@@ -18,6 +18,7 @@ package com.example.android.dessertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -28,6 +29,8 @@ import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
+
+    private var TAG = MainActivity::class.java.name
 
     private var revenue = 0
     private var dessertsSold = 0
@@ -64,7 +67,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO (01) Add an info level log statement here
+        // TODO (01) Add an info level log statement here //DONE
+        Log.i(TAG, "OnCreate was called")
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -148,5 +152,9 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         return super.onOptionsItemSelected(item)
     }
 
-    // TODO (02) Override the onStart lifecycle method and add an info level log statement
+    // TODO (02) Override the onStart lifecycle method and add an info level log statement //DONE
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart was called")
+    }
 }
