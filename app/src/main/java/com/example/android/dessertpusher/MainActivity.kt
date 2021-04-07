@@ -28,6 +28,10 @@ import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_DESSERTS_SOLD = "desserts_sold"
+const val KEY_DESSERT_TIMER_SECONDS = "dessert_timer_seconds_count"
+
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
@@ -78,9 +82,15 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // Setup dessertTimer, passing in the lifecycle
         dessertTimer = DessertTimer(this.lifecycle)
 
-        // TODO (03) Check here if the Bundle savedInstanceState is null. If it isn't, get the
+        // TODO (03) Check here if the Bundle savedInstanceState is null. If it isn't, get the //DONE
         // three values you saved and restore them: revenue, desserts sold and the timer's
         // seconds count. Also make sure to show the correct image resource.
+        if(savedInstanceState != null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERTS_SOLD)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_DESSERT_TIMER_SECONDS)
+            showCurrentDessert()
+        }
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -156,15 +166,26 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    // TODO (01) Add lifecycle callback methods for onSaveInstanceState and onRestoreInstanceState
-    // TODO (02) In onSaveInstanceState, put the revenue, dessertsSold and
-    // dessertTimer.secondsCount in the state Bundle
-
+    
     /** Lifecycle Methods **/
     override fun onStart() {
         super.onStart()
         Timber.i("onStart Called")
+    }
+    // TODO (01) Add lifecycle callback methods for onSaveInstanceState and onRestoreInstanceState //DONE
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // TODO (02) In onSaveInstanceState, put the revenue, dessertsSold and //DONE
+        // dessertTimer.secondsCount in the state Bundle
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt((KEY_DESSERTS_SOLD), dessertsSold)
+        outState.putInt(KEY_DESSERT_TIMER_SECONDS, dessertTimer.secondsCount)
+        Timber.i("onSaveInstanceState")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Timber.i("onRestoreInstanceState")
     }
 
     override fun onResume() {
